@@ -33,7 +33,7 @@ exports.undergroundPathFinder = (entityMap, xNotY /* direction */, line /* x or 
 	};
 
 	getPlacementForIdx = (idx) => {
-		let isAsc = start < stop;
+		let isAsc = start < end;
 		return start + (isAsc) ? idx : -1 * idx;
 	};
 
@@ -46,6 +46,7 @@ exports.undergroundPathFinder = (entityMap, xNotY /* direction */, line /* x or 
 			possiblePlacements.push(getPlacementForIdx(i));
 		}
 	}
+	possiblePlacements.push(end);
 	let lastPlacement = start;
 	let foundPath = [start];
 	for(let i = 1; i < possiblePlacements.length; i++){
@@ -79,7 +80,7 @@ runTest = (bStr, maxLen) => {
 	for(let i = 0; i < bStr.length; i++){
 		o[i] = bStr[i] === '0';
     }
-	let res = undergroundPathFinder({0: o}, 0, 0, bStr.indexOf('e'), maxLen);
+	let res = undergroundPathFinder({0: o}, false, 0, 0, bStr.indexOf('e'), maxLen);
 	let rStr;
 	if(typeof res === 'string'){
 		rStr = res;
@@ -100,4 +101,27 @@ runTest('100e100110001000', 3);
 runTest('111111111111111e', 3);
 runTest('111100011111111e', 3);
 console.log();
+
+100110e110000000
+X00X10X110000000
+100110011001100e
+X00X100X100X100X
+100101010101010e
+!! NO PATH !!
+1e01100110001000
+XX01100110001000
+10e1100110001000
+X0X1100110001000
+100e100110001000
+X00X100110001000
+111111111111111e
+X11X111X111X111X
+111100011111111e
+!! NO PATH !!
 */
+
+
+
+
+
+
