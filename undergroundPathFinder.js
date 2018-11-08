@@ -2,6 +2,7 @@ exports.undergroundPathFinder = (entityMap, xNotY /* direction */, line /* x or 
 	if(start === end){
 		throw new Error("start equal to end!");
 	}
+	// hello world wut
 
 	let startX;
 	let endX;
@@ -74,34 +75,52 @@ exports.undergroundPathFinder = (entityMap, xNotY /* direction */, line /* x or 
 
 /* TESTS */
 
+// to debug node in chrome:
+// node --inspect-brk undergroundPathFinder.js
+// go to: chrome://inspect/#devices
+// "open dedicated devtools for node"
+
 /*
 runTest = (bStr, maxLen) => {
 	let o = {};
 	for(let i = 0; i < bStr.length; i++){
 		o[i] = bStr[i] === '0';
     }
-	let res = undergroundPathFinder({0: o}, false, 0, 0, bStr.indexOf('e'), maxLen);
+	let res = exports.undergroundPathFinder({0: o}, false, 0, 0, bStr.indexOf('e'), maxLen);
 	let rStr;
 	if(typeof res === 'string'){
 		rStr = res;
     } else {
-        let replaceAt= (str, index, replacement) => str.substr(0, index) + replacement+ str.substr(index + replacement.length);
+        let replaceAt = (str, index, replacement) => str.substr(0, index) + replacement+ str.substr(index + replacement.length);
         rStr = JSON.parse(JSON.stringify(bStr));
         res.forEach( idx => rStr = replaceAt(rStr, idx, 'X'));
     }
 	console.log( bStr + "\n" + rStr);
 };
-//       0123456789ABCDEF
-runTest('100110e110000000', 3);
-runTest('100110011001100e', 3);
-runTest('100101010101010e', 3);
-runTest('1e01100110001000', 3);
-runTest('10e1100110001000', 3);
-runTest('100e100110001000', 3);
-runTest('111111111111111e', 3);
-runTest('111100011111111e', 3);
-console.log();
+while(true){
+	try{
+		debugger;
+	//  0123456789ABCDEF
+		runTest('100110e110000000', 3);
+		runTest('100110011001100e', 3);
+		runTest('100101010101010e', 3);
+		runTest('1e01100110001000', 3);
+		runTest('10e1100110001000', 3);
+		runTest('100e100110001000', 3);
+		runTest('111111111111111e', 3);
+		runTest('111100011111111e', 3);
+		console.log(JSON.stringify(exports.undergroundPathFinder({0: {0: false, [-1]: true, [-2]: true, [-3]: false, [-4]: false, [-5]: true, [-6]:false, [-7]:false, [-8]:true, [-9]:false}}, false, 0, 0, -9, 3))); // y desc: [0,-3,-6,-9]
+		console.log(JSON.stringify(exports.undergroundPathFinder({0: {0: false}, 1: {0: true}, 2: {0: true}, 3: {0: false}, 4: {0: false}, 5: {0: true}, 6:{0: false}, 7:{0: false}, 8:{0: true}, 9:{0: false}}, true, 0, 0, 9, 3))); // x asc: [0,3,6,9]
+		console.log(JSON.stringify(exports.undergroundPathFinder({0: {0: false}, [-1]: {0: true}, [-2]: {0: true}, [-3]: {0: false}, [-4]: {0: false}, [-5]: {0: true}, [-6]:{0: false}, [-7]:{0: false}, [-8]:{0: true}, [-9]:{0: false}}, true, 0, 0, -9, 3))); // x desc: [0,-3,-6,-9]
+		console.log();
+	}catch(e){
+		debugger;
+	}
+}
+*/
 
+
+/*
 100110e110000000
 X00X10X110000000
 100110011001100e
