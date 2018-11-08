@@ -1,45 +1,72 @@
-exports.undergroundPathFinder = (entityMap, x, startY, endY, maxLen) => {
-	if(startY === endY){
-		console.log("invalid");
+exports.undergroundPathFinder = (entityMap, xNotY /* direction */, line /* x or y */, start, end, maxLen) => {
+	if(start === end){
+		throw new Error("start equal to end!");
+	}
+
+	let startX;
+	let endX;
+	let startY;
+	let endY;
+	if(xNotY){
+		startX = start;
+		endX = end;
+		startY = line;
+		endY = line;
+	} else {
+		startX = line;
+		endX = line;
+		startY = start;
+		endY = end;
 	}
 
 	// check that beginning and end are clear
-	if(entityMap[x][startY] || entityMap[x][endY]){
-			console.log("no path");
+	if(entityMap[startX][startY] || entityMap[endX][endY]){
+		throw new Error("No path! Start or end blocked!");
 	}
 
-	if(Math.abs(startY - endY) <= maxLen){
-		// just return the start and end
-	}
+	let getAtIdx = (idx) => {
+		if(xNotY){
+			return entityMap[getPlacementForIdx(idx)][line];
+		}else{
+			return entityMap[line][getPlacementForIdx(idx)];
+		}
+	};
+
+	getPlacementForIdx = (idx) => {
+		let isAsc = start < stop;
+		return start + (isAsc) ? idx : -1 * idx;
+	};
+
+	let totalDistance = Math.abs(start - end);
 
 	let newEntities = [];
-	let possiblePlacements = [startY - 1]; // has to start one before startY because we add one in the check later on
-	for(let y = startY + 1; y < endY; y++){
-		if(!entityMap[x][y] && !entityMap[x][y + 1]){
-			possiblePlacements.push(y);
+	let possiblePlacements = [getPlacementForIdx(-1)]; // has to start one before startY because we add one in the check later on
+	for(let i = 1; i < totalDistance - 1; i++){
+		if(!getAtIdx(i) && !getAtIdx(i + 1)){
+			possiblePlacements.push(getPlacementForIdx(i));
 		}
 	}
-	let lastPlacement = startY;
-	let foundPath = [startY];
+	let lastPlacement = start;
+	let foundPath = [start];
 	for(let i = 1; i < possiblePlacements.length; i++){
-		let distance = Math.abs(lastPlacement - possiblePlacements[i]);
+		let distance = Math.abs(lastPlacement - possiblePlacements[i]) - 1;
 		if(distance === maxLen){
 			foundPath.push(possiblePlacements[i]);
-			lastPlacement = possiblePlacements[i] + 1;
+			lastPlacement = possiblePlacements[i];
 		} else if(distance > maxLen){
 			let lastPlacementChecked = possiblePlacements[i - 1];
-			if(lastPlacement === lastPlacementChecked + 1){
+			if(lastPlacement === lastPlacementChecked){
         		return "!! NO PATH !!";
             }
-			lastPlacement = lastPlacementChecked + 1;
+			lastPlacement = lastPlacementChecked;
 			foundPath.push(lastPlacementChecked);
 			i--; // need to check this index again
         }
 	}
-	if(Math.abs(lastPlacement - endY) > maxLen){
+	if(Math.abs(lastPlacement - end) - 1 > maxLen){
         return "!! NO PATH !!";
     }
-	foundPath.push(endY);
+	foundPath.push(end);
 
 	return foundPath;
 }
