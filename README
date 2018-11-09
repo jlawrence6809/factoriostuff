@@ -1,3 +1,55 @@
 https://en.wikipedia.org/wiki/Lee_algorithm
 https://www.reddit.com/r/factorio/comments/6all0k/after_those_blueprintwizardryposts_i_decided_to/?st=joalagi4&sh=3af813e8
 https://en.wikipedia.org/wiki/Rectilinear_Steiner_tree
+http://web.eecs.umich.edu/~mazum/ClassDescriptions/Routing.pdf
+
+https://en.wikipedia.org/wiki/Incremental_game
+
+
+Factorio:
+- Universal tilable mining?
+- Create construcition tree
+- Create blueprint for total construction factory
+	- different classes of needs
+	- full output needed for feeding into the output of the total factory
+	- leftover production for some items, not needed, not guaranteed to produce full line of output (are all of these to be fed into chests?)
+	- build backwards? calc total number of needed raw material inputs
+	- opt out of building some things entirely?
+	- if the number of raw inputs is just overwhelming what then?
+	- pu
+- Tilable refining?
+
+Mod ideas:
+- autorouting
+	- hook up designated belt with a marking device that signals the type of routing to do then bots lay down belts
+- economy system
+	- trade resources for currency
+	- trade currency for offworld resources
+	- create a ship port
+	- create ship technology to improve fleet
+	- can send ships on missions (similar to no man's sky)
+	- customers/colonists
+		- could help you do menial tasks (anything bots can't do?)
+		- would give you currency for providing them services
+			- hotel accomodations
+			- entertainment
+			- war
+- other planets
+- have to purchase land
+- ai players
+- city area on map generated
+	- if you connect cities with trains you get rewards
+	- supply cities with resources and they repay you
+	- build army to attack cities
+		- they might declare war on you, sending bots
+	- 
+- random discoveries
+	- killing monsters or exploring other areas
+	- drop/reveal special items
+		- higher level speed module
+		- suit upgrades
+		- monster repeller that works in radius x
+		- machine supplying infinite resource of x material, placeable
+		- 
+- multi level belts
+

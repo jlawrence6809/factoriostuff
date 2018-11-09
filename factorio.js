@@ -1,18 +1,3 @@
-/*
-Factorio:
-- Universal tilable mining?
-- Create construcition tree
-- Create blueprint for total construction factory
-	- different classes of needs
-	- full output needed for feeding into the output of the total factory
-	- leftover production for some items, not needed, not guaranteed to produce full line of output (are all of these to be fed into chests?)
-	- build backwards? calc total number of needed raw material inputs
-	- opt out of building some things entirely?
-	- if the number of raw inputs is just overwhelming what then?
-	- pu
-- Tilable refining?
-*/
-
 const zlib = require('zlib');
 const Buffer = require('buffer').Buffer;
 const assemblySection = require('./assemblySection').blueprint;
@@ -175,12 +160,11 @@ let getColumn = (recipe, belts) => {
 // current state of project:
 // got the conditioned recipes to a state I like and the code in the recipesCondition.js readable
 // started on the column generation, just on one input type right now
-// currently working on undergroundPathFinder, which could be a mod in itself
 
 
 
 let entityMapper = (entities) => {
-	const getEntityFootPrint = (entity) {
+	const getEntityFootPrint = (entity) => {
 	// get the actual tiles taken up by an entity
 		if(entity.name === 'express-underground-belt'){
 			return {[entity.position.x]: {[entity.position.y]: true}};
@@ -204,39 +188,6 @@ let entityMapper = (entities) => {
 		});
 	});
 };
-
-let undergroundPathFinder = (entityMap, x, startY, endY, maxLen) => {
-	if(startY === endY){
-		throw new Error("invalid");
-	}
-
-	// check that beginning and end are clear
-	if(entityMap[x][startY] || entityMap[x][endY]){
-			throw new Error("no path");
-	}
-
-	if(Math.abs(startY - endY) <= maxLen){
-		// just return the start and end
-	}
-
-	// check that there is width two empty space at least ever maxLen blocks
-	// recursively check with greedy algorithm
-
-	let newEntities = [];
-	let twoWidthYs = [];
-	for(let y = startY + 1; y < endY; y++){
-		if(!entityMap[x][y] && !entityMap[x][y + 1]){
-			twoWidthYs.push(y);
-		}
-	}
-	let lastY = startY;
-	for(let i = 0; i < twoWidthYs.length; i++){
-		if(Math.abs(lastY - twoWidthYs[y]) > maxLen){
-			throw new Error("no path");
-		}
-	}
-	
-}
 
 
 let getColumns = (recipes) => {
